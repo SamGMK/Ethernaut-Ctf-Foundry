@@ -7,3 +7,6 @@
 [submodule "lib/openzepplin-contracts"]
 	path = lib/openzepplin-contracts
 	url = https://github.com/OpenZepplin/openzepplin-contracts
+[submodule "lib/ethernaut-x-foundry"]
+	path = lib/ethernaut-x-foundry
+	url = https://github.com/SamaterPhi7/ethernaut-x-foundry
