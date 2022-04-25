@@ -5,7 +5,8 @@ libs = ['lib']
 remappings = [
     'ds-test/=lib/ds-test/src/',
     'forge-std/=lib/forge-std/src/',
-    'openzeppelin-contracts/=lib/openzeppelin-contracts/contracts/',
+    'ethernaut/=lib/ethernaut-x-foundry/src'
+
 ]
 
 # See more config options https://github.com/gakonst/foundry/tree/master/config

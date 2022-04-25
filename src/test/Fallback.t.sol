@@ -4,35 +4,36 @@ pragma solidity ^0.8.10;
 import "ds-test/test.sol";
 import "forge-std/Vm.sol";
 
-import "ethernaut-x-foundry/src/Fallback/FallbackFactory.sol";
-import "ethernaut-x-foundry/src/Ethernaut.sol";
+import "ethernaut/Ethernaut.sol";
+import "ethernaut/Fallback/FallbackFactory.sol";
 
 
 contract FallbackTest is DSTest {
- 
- //State variables
-    Vm vm = Vm(address(HEVM_ADDRESS)); //special foundry address to call our cheats on
-    Ethernaut ethernaut;
-    address eoaAddress = address(1337); //addr we will use as msg.sender
 
+Vm vm = Vm(address(HEVM_ADDRESS));
+Ethernaut ethernaut;
+address attacker = address(0xbabe);
 
-   //SetUp
-    function setUp() public {
-        
-        ethernaut = new Ethernaut(); //setup a new instance of Ethernaut
-        vm.deal (eoaAddress, 1 ether); //give your msg.sender address eth for gas and other operations
-
-    }
-   
-   
-   //Test
-   function testFallbackHack() public {
-       //LEVEL SETUP
+//SetUp our variables
+function setUp() public {
+    ethernaut = new Ethernaut; //new instance of the Ethernaut game initiated
+    vm.deal(1 ether, attacker); //give attacker account ether to pay for Txs
+}
   
-       
 
-   }
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
-
-
