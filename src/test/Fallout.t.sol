@@ -33,6 +33,13 @@ contract FalloutTest {
         assertEq(falloutAddress.owner(), attacker);
 
         // Level 
-        )
+
+        bool challengeCompleted = ethernaut.submitLevelInstance(
+            payable(levelAddress)
+        );
+        assert(challengeCompleted);
+
+
+
     }
 }
