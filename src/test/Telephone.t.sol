@@ -9,23 +9,20 @@ import "ethernaut/Telephone/TelephoneFactory.sol";
 import "ethernaut/Telephone/TelephoneHack.sol";
 
 contract TelephoneTest is DSTest {
-  //--------------------------------------------------------------------------------
-  //                            Setup Game Instance
-  //--------------------------------------------------------------------------------
-
+  
+//Needed state variables
   Vm vm = Vm(address(HEVM_ADDRESS)); // `ds-test` library cheatcodes for testing
   Ethernaut ethernaut;
   address attacker = address(0xdeadbeef);
 
+//SET UP FUNCTION
   function setUp() public {
     ethernaut = new Ethernaut(); // initiate Ethernaut contract instance
     vm.deal(attacker, 1 ether); // fund our attacker contract with 1 ether
   }
 
   function testTelephoneHack() public {
-    //--------------------------------------------------------------------------------
-    //                             Setup Level Instance
-    //--------------------------------------------------------------------------------
+    //LEVEL SETUP
     TelephoneFactory telephoneFactory = new TelephoneFactory();
     ethernaut.registerLevel(telephoneFactory);
     vm.startPrank(attacker);
@@ -33,18 +30,15 @@ contract TelephoneTest is DSTest {
     address levelAddress = ethernaut.createLevelInstance(telephoneFactory);
     Telephone telephoneContract = Telephone(levelAddress);
 
-    //--------------------------------------------------------------------------------
-    //                             Start Level Attack
-    //--------------------------------------------------------------------------------
+    //LEVEL ATTACK
     TelephoneHack attackContract = new TelephoneHack(levelAddress);
     emit log_named_address('tx.origin', tx.origin);
     emit log_named_address('msg.sender', attacker); // vm cheatcode set to attacker
     attackContract.attack();
 
     assertEq(telephoneContract.owner(), attacker);
-    //--------------------------------------------------------------------------------
-    //                                Submit Level
-    //--------------------------------------------------------------------------------
+    
+    //LEVEL SUBMISSION
     bool challengeCompleted = ethernaut.submitLevelInstance(
       payable(levelAddress)
     );
