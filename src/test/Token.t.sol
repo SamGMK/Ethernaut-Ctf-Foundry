@@ -34,6 +34,10 @@ contract TokenHack is DSTest {
         tokenContract.transfer(address(this), MAX_VALUE);
         uint balance = tokenContract.balanceOf(address(this));
         assert(balance > 20);
+        emit log_named_uint(
+            "balance of  attacker:",
+            tokenContract.balanceOf(address(this))
+        );
 
         //LEVEL SUBMISSION
         bool challengeCompleted = ethernaut.submitLevelInstance(
