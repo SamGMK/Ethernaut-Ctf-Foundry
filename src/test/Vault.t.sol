@@ -30,7 +30,7 @@ contract VaultTest is DSTest {
         Vault vaultContract = Vault(payable(levelAddress));
 
         //LEVEL ATTACK
-       bytes32 stolenPassword = vm.load(levelAddress, bytes32(uint256(1)));
+       bytes32 stolenPassword = vm.load(levelAddress, bytes32(uint256(1))); //vm.load loads a storage slot from a contract
        vaultContract.unlock(stolenPassword);
 
         //LEVEL SUBMISSION
