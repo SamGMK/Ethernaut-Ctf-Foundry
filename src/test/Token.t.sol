@@ -7,7 +7,7 @@ import "forge-std/Vm.sol";
 import "ethernaut/Ethernaut.sol";
 import "ethernaut/Token/TokenFactory.sol";
 
-contract TokenHack is DSTest {
+contract TokenTest is DSTest {
     //state variables needed
     Vm vm = Vm(address(HEVM_ADDRESS));
     Ethernaut ethernaut;
