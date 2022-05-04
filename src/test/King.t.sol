@@ -17,7 +17,7 @@ contract KingTest is DSTest {
     //set up the variables above
     function setUp() public {
         ethernaut = new Ethernaut();
-        vm.deal(attacker, 1 ether);
+        vm.deal(attacker, 3 ether);
     }
 
     //level set up, attack and submission
@@ -27,24 +27,22 @@ contract KingTest is DSTest {
         ethernaut.registerLevel(kingFactory);
         vm.startPrank(attacker);
 
-        address levelAddress = ethernaut.createLevelInstance(kingFactory);
+        address levelAddress = ethernaut.createLevelInstance{value: 1 ether}(kingFactory);
         King kingContract = King(payable(address(levelAddress)));
 
         //LEVEL ATTACK
-        KingHack kingHack = KingHack(payable(address(levelAddress)));
-        kingHack.call{value: 1 ether}('
-           abi.encodeWithSelector(bytes4(keccak256(bytes(attack()))))
-           ');
+        KingHack kingHack = new KingHack(payable(address(levelAddress)));
+        kingHack.attack{value: 2 ether}();
         
         address newKing = kingContract._king();
-        assertEq(newKing == address(this));
+        assertEq(newKing, address(this));
 
         //LEVEL SUBMISSION
         bool challengeCompleted = ethernaut.submitLevelInstance(
             payable(levelAddress)
         );
 
-        assert(challenCompleted);
+        assert(challengeCompleted);
         
     }
 }
