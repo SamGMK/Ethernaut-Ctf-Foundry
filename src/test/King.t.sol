@@ -41,7 +41,7 @@ contract KingTest is DSTest {
         bool challengeCompleted = ethernaut.submitLevelInstance(
             payable(levelAddress)
         );
-
+         vm.stopPrank();
         assert(challengeCompleted);
         
     }
