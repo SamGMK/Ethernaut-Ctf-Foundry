@@ -27,7 +27,7 @@ contract ElevatorTest is DSTest {
         
 
         address levelAddress = ethernaut.createLevelInstance(elevatorFactory);
-        Elevator elevatorContract = Elevator(levelAddress);
+        //Elevator elevatorContract = Elevator(levelAddress);
 
         //LEVEL ATTACK
         ElevatorHack elevatorHackAddress = new ElevatorHack(address(levelAddress));
@@ -37,7 +37,7 @@ contract ElevatorTest is DSTest {
         bool challengeCompleted = ethernaut.submitLevelInstance(
              payable(levelAddress)
         );
-        assert(challengeCompleted)'
+        assert(challengeCompleted);
         
 
 
