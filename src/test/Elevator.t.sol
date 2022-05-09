@@ -34,7 +34,7 @@ contract ElevatorTest is DSTest {
         elevatorHackAddress.attack();
 
         //LEVEl SUBMISSION
-        bool challengeConpleted = ethernaut.submitLevelInstance(
+        bool challengeCompleted = ethernaut.submitLevelInstance(
              payable(levelAddress)
         );
         assert(challengeCompleted)'
