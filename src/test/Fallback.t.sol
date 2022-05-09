@@ -66,7 +66,7 @@ function testFallbackHack() public {
         attacker.balance
      );
 
-     //LEVEL ASSERTION
+     //LEVEL SUBMITION
      bool challengeCompleted = ethernaut.submitLevelInstance(
        payable(levelAddress)
      );
