@@ -20,7 +20,20 @@ contract DexTest is DSTest {
         //LEVEL SETUP
         DexFactory dexFactory = new DexFactory();
         ethernaut.registerLevel(dexFactory);
-        address levelAddress = ethernaut.createLevelInstance(dexFactory);
+        address levelAddress = ethernaut.createLevelInstance{value: 1 ether}(dexFactory);
         Dex dexContract = Dex(payable(levelAddress));
+        DexHack dexHackContract = new DexHack(dexContract);
+
+        //LEVEL ATTACK
+        IERC20(ethernautDex.token1()).transfer(address(dexHackContract), IERC20(ethernautDex.token1().balanceOf(address(this))));
+        IERC20(ethernautDex.token2()).transfer(address(dexHackContract), IERC20(ethernautDex.token2().balanceOf(address(this))));
+
+        dexHackContract.attack();
+
+        //LEVEL SUBMISSION
+        bool challengeCompleted = ethernaut.submitLevelInstance(
+            payable(levelAddress)
+        );
+        assert(challengeCompleted);
     }
 }
